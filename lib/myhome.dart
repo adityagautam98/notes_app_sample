@@ -6,7 +6,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notes"),
+        backgroundColor: Color(0xff004080 ),
+        title: Text("Dear Diary"),
       ),
       body: MainPage(),
     );

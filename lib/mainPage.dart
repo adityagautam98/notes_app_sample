@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
+import 'package:notes_app/inputScreen.dart';
 import 'package:notes_app/model.dart';
+import 'package:notes_app/outputScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -13,46 +16,99 @@ class _MainPageState extends State<MainPage> {
   var db = DatabaseHelper();
   final List<NoDoItem> _itemList = <NoDoItem>[];
 
+  int savedId;
+
   @override
   void initState() {
     super.initState();
     _readNoDoList();
   }
 
-  void _handleSubmitted(String text) async {
-    textEditingController.clear();
-    NoDoItem noDoItem = NoDoItem(text, dateFormatted());
-    int savedItemId = await db.saveItem(noDoItem);
-    NoDoItem addedItem = await db.getItem(savedItemId);
-    setState(() {
-      _itemList.insert(0, addedItem);
-    });
-    print("Item saved id: $savedItemId");
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: Column(
         children: <Widget>[
+          //Card(),
           new Flexible(
               child: ListView.builder(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(5),
                   reverse: false,
                   itemCount: _itemList.length,
                   itemBuilder: (_, int index) {
                     return Card(
                       color: Colors.grey.shade100,
                       child: ListTile(
-                        title: _itemList[index],
-                        onLongPress: () => _updateItem(_itemList[index], index),
-                        trailing: Listener(
-                          key: Key(_itemList[index].itemName),
-                          child: Icon(
-                            Icons.delete,
+                        leading: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0),
+                                child: Text("${_itemList[index].day}", style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 13
+                                ),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Text(_itemList[index].date, style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600
+                                ),),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Text(_itemList[index].time, style: TextStyle(
+                                    fontSize: 12
+                                ),),
+                              )
+                            ],
                           ),
-                          onPointerDown: (pointerEvent) => _deleteNoDo(_itemList[index].id, index),// pointer down means the tap event has occured
                         ),
+                        title:
+                        Padding(
+                          padding: const EdgeInsets.only(top:12, bottom: 12),
+                          child: Column(
+                            children: <Widget>[
+                              Container(child: Text("${_itemList[index].itemName}", style:
+                                TextStyle(fontSize: 17, fontWeight: FontWeight.w500),),
+                              alignment: Alignment.topLeft,),
+                              Padding(
+                                padding: const EdgeInsets.only(top:2.0),
+                                child: Container(
+                                  child: Text("${_itemList[index].data}", maxLines: 3,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 15
+                                  ),),
+                                  alignment: Alignment.topLeft,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onLongPress: () => _updateItem(_itemList[index], index),
+                        trailing: IconButton(
+                            key: Key(_itemList[index].itemName),
+                            icon: Icon(
+                              Icons.delete,
+                            ),
+                            onPressed:() {
+                              _deleteNoDo(_itemList[index].id, index);
+                              // pointer down means the tap event has occured
+                            }),
+                        onTap: (){
+                          String data= _itemList[index].data;
+                          var router2= new MaterialPageRoute(
+                              builder: (BuildContext context){
+                                return outputScreen(title: _itemList[index].itemName.toString() , data: data, item: _itemList[index], index: index,);
+                              }
+                          );
+                          Navigator.of(context).push(router2);
+
+                        },
                       ),
                     );
                   })),
@@ -63,51 +119,21 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: new FloatingActionButton(
           tooltip: "Add Item",
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Color(0xff004d93),
           child: new ListTile(
             title: new Icon(Icons.add),
           ),
-          onPressed: _showFormDialog),
+          onPressed:() {
+            var router2 = new MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return inputScreen();
+                }
+            );
+            Navigator.of(context).pushReplacement(router2);
+          }),
     );
   }
 
-  void _showFormDialog() {
-    var alert = AlertDialog(
-      content: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              controller: textEditingController,
-              autofocus: true,
-              decoration: InputDecoration(
-                  labelText: "Items",
-                  hintText: "ex- Dont do homework",
-                  icon: Icon(Icons.note_add)),
-            ),
-          )
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            _handleSubmitted(textEditingController.text);
-            textEditingController.clear();
-            Navigator.pop(context);
-          },
-          child: Text("Save"),
-        ),
-        FlatButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text("Cancel"),
-        )
-      ],
-    );
-    showDialog(
-        context: context,
-        builder: (_) {
-          return alert;
-        });
-  }
 
   _readNoDoList() async {
     List items = await db.getItems();
@@ -150,15 +176,20 @@ class _MainPageState extends State<MainPage> {
         FlatButton(
           onPressed: ()async{
             NoDoItem newItem= NoDoItem.fromMap({"itemName": textEditingController.text,
-            "dateCreated": dateFormatted(),
-            "id": item.id});
+              "dateCreated": dateFormatted(0),
+              "id": item.id,
+              "day": item.day,
+              "date": item.date,
+              "time":item.time,
+              "data": item.data
+            });
             _handleSubmittedUpdate(index, item);//removed item from view, redrawing the screen
             await db.updateItem(newItem);// update in database
-          setState(() {
-            _readNoDoList(); // redrawing screen with updated database
-          });
-          textEditingController.clear();
-          Navigator.pop(context);
+            setState(() {
+              _readNoDoList(); // redrawing screen with updated database
+            });
+            textEditingController.clear();
+            Navigator.pop(context);
           },
           child: Text("Update"),
         ),
@@ -181,4 +212,8 @@ class _MainPageState extends State<MainPage> {
       });
     });
   }
+
+
+
+
 }

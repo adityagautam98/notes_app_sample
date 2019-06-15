@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/SplashScreen.dart';
 
 import 'myhome.dart';
 
@@ -11,5 +12,5 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Notes',
-      home: Home());
+      home: Splash());
   }}
