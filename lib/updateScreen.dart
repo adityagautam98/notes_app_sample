@@ -1,3 +1,4 @@
+import 'package:notes_app/globalVariables.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
@@ -34,8 +35,9 @@ class _updateScreenState extends State<updateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( backgroundColor: Color(0xff004080 ),
+      appBar: AppBar( backgroundColor: Color(data.Variables.AppBarColor),
         title: Text("Edit Entry"),
+        elevation: 15,
         actions: <Widget>[
          IconButton(
             icon: Icon(Icons.done_all),
