@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:notes_app/dateFormatter.dart';
 import 'package:notes_app/notesScreen/noteViewpage.dart';
 import 'databasenotes.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'modelNotes.dart';
 
 class notesPage extends StatefulWidget {
@@ -48,17 +49,15 @@ class _notesPage extends State<notesPage> {
           // Create a grid with 2 columns. If you change the scrollDirection to
           // horizontal, this produces 2 rows.
           crossAxisCount: 2,
-          childAspectRatio: .9,
           crossAxisSpacing: 5,
+          childAspectRatio: .85,
           mainAxisSpacing: 4,
-          // Generate 100 widgets that display their index in the List.
           children: List.generate(_itemList.length, (index) {
             return Container(
-              height: 150,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("images/noteclip1.png"),
-                      fit: BoxFit.cover)),
+             decoration:BoxDecoration(
+            image: DecorationImage(
+            image: AssetImage("images/noteclip1.png"),
+            fit: BoxFit.fill)),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(2, 3, 0, 4),
                 child: ListTile(
@@ -77,54 +76,61 @@ class _notesPage extends State<notesPage> {
                     _updateItem(
                         _itemList[index], index, _itemList[index].itemName);
                   },
-                  title: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  title: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
-                          child: Text(
-                        "${_itemList[index].dateCreated}",
-                        style: TextStyle(
-                            fontSize: 28,
-                            color: Color(0xff004466),
-                            fontWeight: FontWeight.w600),
-                        textAlign: TextAlign.left,
-                      )),
-                      Expanded(
-                          child: Text(
-                        "  ${_itemList[index].month}",
-                        style: TextStyle(fontSize: 17),
-                      )),
-                      IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            _deleteNoDo(_itemList[index].id, index);
-                          })
+
+                        child: Row( children: <Widget>[
+                            Container(
+                                child: Text(
+                              "${_itemList[index].dateCreated}",
+                                                            style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color(0xff004466),
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.left,
+                            )),
+                            Expanded(
+                                child: Text(
+                              "  ${_itemList[index].month}",
+                              style: TextStyle(fontSize: 17),
+                            )),
+                            IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  _deleteNoDo(_itemList[index].id, index);
+                                })
+                          ],
+                        ),
+                      ),
+                       Expanded(
+                         child: Container(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                   AutoSizeText(
+                                      "${_itemList[index].itemName}",
+                                    maxLines: 7,  style: TextStyle(
+                                          fontSize: 15, color: Colors.black87),
+                                    ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: AutoSizeText(
+                                      "${_itemList[index].time}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  )
+                                ]),
+                          ),
+                       ),
+
                     ],
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: Container(
-                      height: 147,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Flexible(
-                              flex: 1,
-                              child: Text(
-                                "${_itemList[index].itemName}",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black87),
-                                softWrap: true,
-                              ),
-                            ),
-                            Text(
-                              "${_itemList[index].time}",
-                              textAlign: TextAlign.right,
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ]),
-                    ),
                   ),
                 ),
               ),

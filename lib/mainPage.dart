@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
 import 'package:notes_app/globalVariables.dart' as data;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:notes_app/inputScreen.dart';
 import 'package:notes_app/model.dart';
 import 'package:notes_app/outputScreen.dart';
@@ -41,15 +42,15 @@ _loadSavedData();
                     return Card(
                       color: Colors.grey.shade100,
                       child: ListTile(
-                        leading: Container(
-                          child: Column(
+                        leading: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(top: 0),
-                                child: Text(
+                                child: AutoSizeText(
                                   "${_itemList[index].day}",
+                                  maxLines: 1,
                                   style: TextStyle(
                                       fontStyle: FontStyle.italic,
                                       fontSize: 13),
@@ -57,8 +58,9 @@ _loadSavedData();
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(2.0),
-                                child: Text(
+                                child: AutoSizeText(
                                   _itemList[index].date,
+                                  maxLines: 1,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
@@ -66,29 +68,34 @@ _loadSavedData();
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(2.0),
-                                child: Text(
+                                child: AutoSizeText(
                                   _itemList[index].time,
+                                  maxLines: 1,
                                   style: TextStyle(fontSize: 12),
                                 ),
                               )
                             ],
-                          ),
                         ),
                         title: Padding(
-                          padding: const EdgeInsets.only(top: 12, bottom: 12),
+                          padding: const EdgeInsets.only(top: 0, bottom: 0),
                           child: Column(
                             children: <Widget>[
-                              Container(
-                                child: Text(
-                                  "${_itemList[index].itemName}",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w500),
+                              Padding(
+                                padding: const EdgeInsets.only(top:10.0, bottom:0),
+                                child: Container(
+                                  child: AutoSizeText(
+                                    "${_itemList[index].itemName}",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  alignment: Alignment.topLeft,
                                 ),
-                                alignment: Alignment.topLeft,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 3.0),
+                                padding: const EdgeInsets.only(top: 3.0,bottom:10),
                                 child: Container(
                                   child: Text(
                                     "${_itemList[index].data}",
