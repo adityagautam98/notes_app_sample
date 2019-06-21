@@ -30,6 +30,7 @@ dependencies:
   flutter_launcher_icons: "^0.7.0"
   image_picker: ^0.6.0+9
   auto_size_text: ^2.0.1
+  configurable_expansion_tile: ^1.0.0
 
 
 dev_dependencies:
@@ -62,10 +63,16 @@ flutter:
 
     - images/Logo.png
     - images/noteback.png
+    - images/notethumbpng.png
+    - images/notethumb2.png
+    - images/thumb.png
+    - images/thumb3.png
+    - images/noteback1.png
     - images/title.png
     - images/noteclip1.png
     - images/logo1.png
     - images/diary.png
+    - images/noteclip2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

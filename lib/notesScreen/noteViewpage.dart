@@ -1,3 +1,4 @@
+import 'package:notes_app/globalVariables.dart'as data;
 import 'package:flutter/material.dart';
 import 'package:notes_app/notesScreen/modelNotes.dart';
 import 'package:flutter/services.dart';
@@ -25,7 +26,7 @@ class _noteViewState extends State<noteView> {
           child: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("images/noteback.png"),
+                    image: AssetImage("${data.Variables.notepad}"),
                     fit: BoxFit.fill)),
             child: Container(
               margin: EdgeInsets.fromLTRB(0, 60, 0, 0) ,

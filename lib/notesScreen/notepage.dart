@@ -43,6 +43,7 @@ class _notesPage extends State<notesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffececec),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: GridView.count(
@@ -56,7 +57,7 @@ class _notesPage extends State<notesPage> {
             return Container(
              decoration:BoxDecoration(
             image: DecorationImage(
-            image: AssetImage("images/noteclip1.png"),
+            image: AssetImage(data.Variables.smallNote),
             fit: BoxFit.fill)),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(2, 3, 0, 4),
@@ -286,8 +287,7 @@ class _notesPage extends State<notesPage> {
         _saveLoadState(false);
         _handleSubmitted(saved);
       }
-      print(_saveData);
-    });
+     });
   }
 
   _saveLoadState(bool toLoad) async {

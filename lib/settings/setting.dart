@@ -1,7 +1,7 @@
 import 'package:notes_app/globalVariables.dart' as data;
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:notes_app/myhome.dart';
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -11,15 +11,18 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   int selected;
-  var focus= FocusNode();
+  int back;
+  int backgroundmain;
   bool shade = false;
-  int shadeselect=null;
-int ss1;
-int ss2;
-int ss3;
-int ss4;
-int ss5;
-int ss6;
+  int shadeselect = null;
+  int ss1;
+  int ss2;
+  int ss3;
+  int ss4;
+  int ss5;
+  int ss6;
+  int ss7;
+
   void selectMethod(int value) {
     setState(() {
       selected = value;
@@ -30,27 +33,29 @@ int ss6;
             data.Variables.AppBarColor = 0xff004080;
             _saveMessage(0xff004080);
             shade = true;
-            shadeselect=null;
-            ss1=0xff001a34;
-            ss2=0xff00274d;
-            ss3=0xff003367;
-            ss4=0xff004d9a;
-            ss5=0xff005ab3;
-            ss6=0xff0066cd;
+            shadeselect = null;
+            ss1 = 0xff001a34;
+            ss2 = 0xff00274d;
+            ss3 = 0xff003367;
+            ss4 = 0xff004d9a;
+            ss5 = 0xff005ab3;
+            ss6 = 0xff0066cd;
+            ss7 = 0xff1b8cff;
             break;
           }
         case 1:
           {
             data.Variables.AppBarColor = 0xffef3979;
             _saveMessage(0xffef3979);
-            shadeselect=null;
+            shadeselect = null;
             shade = true;
-            ss1=0xffcb1052;
-            ss2=0xffe3125c;
-            ss3=0xffed2169;
-            ss4=0xffef3979;
-            ss5=0xfff15189;
-            ss6=0xfff580a9;
+            ss1 = 0xffcb1052;
+            ss2 = 0xffe3125c;
+            ss3 = 0xffed2169;
+            ss4 = 0xffef3979;
+            ss5 = 0xfff15189;
+            ss6 = 0xfff580a9;
+            ss7 = 0xfff9afc9;
             break;
           }
         case 2:
@@ -58,28 +63,30 @@ int ss6;
             data.Variables.AppBarColor = 0xffc828d2;
             _saveMessage(0xffc828d2);
             shade = true;
-            shadeselect=null;
-            ss1=0xff8b1c92;
+            shadeselect = null;
+            ss1 = 0xff8b1c92;
 
-            ss2=0xff9f20a7;
-            ss3=0xffb424bd;
-            ss4=0xffc828d2;
-            ss5=0xffd03ad9;
-            ss6=0xffda65e2;
+            ss2 = 0xff9f20a7;
+            ss3 = 0xffb424bd;
+            ss4 = 0xffc828d2;
+            ss5 = 0xffd03ad9;
+            ss6 = 0xffda65e2;
+            ss7 = 0xffdf7ae6;
             break;
           }
         case 3:
           {
             data.Variables.AppBarColor = 0xff009cff;
             _saveMessage(0xffc009cff);
-            shadeselect=null;
+            shadeselect = null;
             shade = true;
-            ss1=0xff006db3;
-            ss2=0xff007dcc;
-            ss3=0xff008ce6;
-            ss4=0xff009cff;
-            ss5=0xff33b0ff;
-            ss6=0xff4dbaff;
+            ss1 = 0xff006db3;
+            ss2 = 0xff007dcc;
+            ss3 = 0xff008ce6;
+            ss4 = 0xff009cff;
+            ss5 = 0xff33b0ff;
+            ss6 = 0xff4dbaff;
+            ss7 = 0xff67c4ff;
             break;
           }
         case 4:
@@ -87,46 +94,50 @@ int ss6;
             data.Variables.AppBarColor = 0xff009e34;
             _saveMessage(0xff009e34);
             shade = true;
-            shadeselect=null;
-            ss1=0xff00521b;
-            ss2=0xff006b23;
-            ss3=0xff00852c;
-            ss4=0xff009e34;
-            ss5=0xff00b83c;
-            ss6=0xff00d145;
+            shadeselect = null;
+            ss1 = 0xff00521b;
+            ss2 = 0xff006b23;
+            ss3 = 0xff00852c;
+            ss4 = 0xff009e34;
+            ss5 = 0xff00b83c;
+            ss6 = 0xff00d145;
+            ss7 = 0xff00eb4d;
             break;
           }
         case 5:
           {
             data.Variables.AppBarColor = 0xffe2cf5a;
             shade = true;
-            shadeselect=null;
+            shadeselect = null;
             _saveMessage(0xffe2cf5a);
-            ss1=0xffe2ad5a;
-            ss2=0xffe2b85a;
-            ss3=0xffccb424;
-            ss4=0xffdac22f;
-            ss5=0xffdec944;
-            ss6=0xffe2cf5a;
+            ss1 = 0xffe2ad5a;
+            ss2 = 0xffe2b85a;
+            ss3 = 0xffccb424;
+            ss4 = 0xffdac22f;
+            ss5 = 0xffdec944;
+            ss6 = 0xffe2cf5a;
+            ss7 = 0xffe6d175;
             break;
           }
         case 6:
           {
             data.Variables.AppBarColor = 0xff00b990;
             shade = true;
-            shadeselect=null;
-            ss1=0xff006d54;
-            ss2=0xff008668;
-            ss3=0xff00a07c;
-            ss4=0xff00b990;
-            ss5=0xff00b990;
-            ss6=0xff00b4b9;
+            shadeselect = null;
+            ss1 = 0xff006d54;
+            ss2 = 0xff008668;
+            ss3 = 0xff00a07c;
+            ss4 = 0xff00b990;
+            ss5 = 0xff00b990;
+            ss6 = 0xff00b4b9;
+            ss7 = 0xff00cdd3;
             _saveMessage(0xff00b990);
             break;
           }
       }
     });
   }
+
   void selectShadeMethod(int value) {
     setState(() {
       shadeselect = value;
@@ -174,9 +185,56 @@ int ss6;
             _saveMessage(ss6);
             break;
           }
-         }
+        case 6:
+          {
+            data.Variables.AppBarColor = ss7;
+            shade = true;
+            _saveMessage(ss7);
+            break;
+          }
+      }
     });
   }
+
+  void selectbackground(int value) {
+    setState(() {
+      back = value;
+
+      switch (value) {
+        case 0:
+          {
+            data.Variables.smallNote = "images/noteclip1.png";
+            _saveBackground("images/noteclip1.png");
+            break;
+          }
+        case 1:
+          {
+            data.Variables.smallNote = "images/noteclip2.png";
+            _saveBackground("images/noteclip2.png");
+            break;
+          }
+      }
+    });
+  }
+
+  void selectNotebackground(int value) {
+    setState(() {
+      backgroundmain= value;
+
+      switch (value) {
+        case 0:
+          {
+            data.Variables.notepad = "images/noteback.png";
+            _saveNoteBackground("images/noteback.png");
+            break;
+          }
+        case 1:
+          {
+            data.Variables.notepad = "images/noteback1.png";
+            _saveNoteBackground("images/noteback1.png");
+            break;
+          }
+      }});}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,321 +311,764 @@ int ss6;
           ),
         ),
       ),
-      body: Column(children: [
-        ExpansionTile(
-            title: Text(
-              "1. Choose theme Color :",
-              style:
-                  TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
-            ),
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(right: 0),
-                  child: new Container(
-                    margin: EdgeInsets.all(10),
-                    alignment: Alignment.center,
-                    child: new SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(padding: EdgeInsets.all(0)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 0,
-                                      groupValue: selected,
-                                      activeColor: Color(0xff004080),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xff004080),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 1,
-                                      groupValue: selected,
-                                      activeColor: Color(0xffef3979),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xffef3979),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 2,
-                                      groupValue: selected,
-                                      activeColor: Color(0xffc828d2),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xffc828d2),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 3,
-                                      groupValue: selected,
-                                      activeColor:Color(0xff009cff),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xff009cff),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 4,
-                                      groupValue: selected,
-                                      activeColor: Colors.brown.shade400,
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xff009e34),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 5,
-                                      groupValue: selected,
-                                      activeColor: Color(0xffe2cf5a),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xffe2cf5a),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.all(7)),
-                              new Flexible(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Radio<int>(
-                                      value: 6,
-                                      groupValue: selected,
-                                      activeColor: Color(0xff00b990),
-                                      onChanged: selectMethod,
-                                    ),
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      color: Color(0xff00b990),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ])),
-                  )),
-            ]),
-        Container(
-            child: shade
-                ? ExpansionTile(
-              onExpansionChanged: (bool t){
-                shadeselect=null;
-              },
-                    title: Text("You can also choose shade:"),
-              children: <Widget>[
-                Padding(
-                    padding: const EdgeInsets.only(right: 0),
-                    child: new Container(
-                      margin: EdgeInsets.all(10),
-                      alignment: Alignment.center,
-                      child: new SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
+      body: Container(
+        child: ListView(children: [
+          Stack(children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(30, 26, 8, 0),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  child: Column(children: <Widget>[
+                    ConfigurableExpansionTile(
+                        onExpansionChanged: (bool t) {
+                          setState(() {
+                            if (!t) {
+                              shade = false;
+                            }
+                          });
+                        },
+                        animatedWidgetFollowingHeader: Padding(
+                          padding: const EdgeInsets.only(right: 28.0),
+                          child: const Icon(
+                            Icons.expand_more,
+                            color: const Color(0xFF707070),
+                          ),
+                        ),
+                        header: Flexible(
                           child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(padding: EdgeInsets.all(0)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 0,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss1),
-                                        onChanged: selectShadeMethod,
-                                      ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss1),
-                                      ),
-                                    ],
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                "Theme Colour",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                    fontSize: 19),
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: Container(
+                                  width: 25,
+                                  height: 25,
+                                  color: Color(data.Variables.AppBarColor),
                                 ),
-                                Padding(padding: EdgeInsets.all(7)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 1,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss2),
-                                        onChanged: selectShadeMethod,
+                              )
+                            ],
+                          ),
+                        ),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 25, 8, 10),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: new SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xff004080),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 0,
+                                                groupValue: selected,
+                                                activeColor: Color(0xff004080),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xffef3979),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 1,
+                                                groupValue: selected,
+                                                activeColor: Color(0xffef3979),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xffc828d2),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 2,
+                                                groupValue: selected,
+                                                activeColor: Color(0xffc828d2),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xff009cff),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 3,
+                                                groupValue: selected,
+                                                activeColor: Color(0xff009cff),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xff009e34),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 4,
+                                                groupValue: selected,
+                                                activeColor: Color(0xff009e34),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xffe2cf5a),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 5,
+                                                groupValue: selected,
+                                                activeColor: Color(0xffe2cf5a),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(padding: EdgeInsets.all(7)),
+                                        new Flexible(
+                                          flex: 1,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                child: Container(
+                                                  width: 25,
+                                                  height: 25,
+                                                  color: Color(0xff00b990),
+                                                ),
+                                              ),
+                                              new Radio<int>(
+                                                value: 6,
+                                                groupValue: selected,
+                                                activeColor: Color(0xff00b990),
+                                                onChanged: selectMethod,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ])),
+                            ),
+                          ),
+                          Container(
+                              child: shade
+                                  ? ConfigurableExpansionTile(
+                                      onExpansionChanged: (bool t) {
+                                        if (!t) {
+                                          setState(() {
+                                            shadeselect = null;
+                                            shade = false;
+                                          });
+                                        }
+                                      },
+                                      animatedWidgetFollowingHeader: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 28.0),
+                                        child: const Icon(
+                                          Icons.expand_more,
+                                          color: const Color(0xFF707070),
+                                        ),
                                       ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss2),
+                                      header: Flexible(
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 18.0),
+                                              child: Text(
+                                                "You can also choose between shades",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ])),
+                                      children: <Widget>[
+                                        Container(
+                                          margin:
+                                              EdgeInsets.fromLTRB(8, 18, 8, 0),
+                                          alignment: Alignment.center,
+                                          child: new SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(0)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss1),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 0,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss1),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss2),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 1,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss2),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss3),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 2,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss3),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss4),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 3,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss4),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss5),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 4,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss5),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss6),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 5,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss6),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                        padding:
+                                                            EdgeInsets.all(7)),
+                                                    new Flexible(
+                                                      flex: 1,
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            child: Container(
+                                                              width: 25,
+                                                              height: 25,
+                                                              color: Color(ss7),
+                                                            ),
+                                                          ),
+                                                          new Radio<int>(
+                                                            value: 6,
+                                                            groupValue:
+                                                                shadeselect,
+                                                            activeColor:
+                                                                Color(ss7),
+                                                            onChanged:
+                                                                selectShadeMethod,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ])),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(
+                                      height: 0,
+                                      width: 0,
+                                    )),
+                        ]),
+                  ]),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 8),
+              child: Icon(
+                Icons.settings,
+                size: 55,
+                color: Color(data.Variables.AppBarColor),
+              ),
+            ),
+          ]),
+          Stack(children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(30, 25, 8, 0),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  child: ConfigurableExpansionTile(
+                      header: Flexible(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              "Select Clip background",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontSize: 19),
+                            ),
+                          ],
+                        ),
+                      ),
+                      animatedWidgetFollowingHeader: Padding(
+                        padding: const EdgeInsets.only(right: 28.0),
+                        child: const Icon(
+                          Icons.expand_more,
+                          color: const Color(0xFF707070),
+                        ),
+                      ),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 20, 4, 0),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Card(
+                                              color: Colors.grey.shade200,
+                                              child: Container(
+                                                width: 90,
+                                                height: 100,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: (Image.asset(
+                                                      "images/noteclip1.png")),
+                                                ),
+                                              )),
+                                          new Radio<int>(
+                                            value: 0,
+                                            groupValue: back,
+                                            activeColor: Color(0xff004080),
+                                            onChanged: selectbackground,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.all(7)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 2,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss3),
-                                        onChanged: selectShadeMethod,
+                                    ),
+                                    Padding(padding: EdgeInsets.all(25)),
+                                    new Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Card(
+                                            color: Colors.grey.shade200,
+                                              child: Container(
+                                                  width: 90,
+                                                  height: 100,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Image.asset(
+                                                      "images/noteclip2.png",
+                                                    ),
+                                                  ))),
+                                          new Radio<int>(
+                                            value: 1,
+                                            groupValue: back,
+                                            activeColor: Color(0xff004080),
+                                            onChanged: selectbackground,
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss3),
+                                    ),
+                                  ])),
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(14, 14, 8, 8),
+                child: Image.asset(
+                  "images/thumb3.png",
+                  color: Color(data.Variables.AppBarColor),
+                  width: 42,
+                ))
+          ]),
+          Stack(children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(30, 25, 8, 0),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  child: ConfigurableExpansionTile(
+                      header: Flexible(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text(
+                              "Select Note pad background",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                  fontSize: 18),
+                            ),
+                          ],
+                        ),
+                      ),
+                      animatedWidgetFollowingHeader: Padding(
+                        padding: const EdgeInsets.only(right: 28.0),
+                        child: const Icon(
+                          Icons.expand_more,
+                          color: const Color(0xFF707070),
+                        ),
+                      ),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 20, 4, 0),
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Card(
+                                              color: Colors.grey.shade200,
+                                              child: Container(
+                                                width: 110,
+                                                height: 130,
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets.all(8.0),
+                                                  child: (Image.asset(
+                                                      "images/notethumbpng.png")),
+                                                ),
+                                              )),
+                                          new Radio<int>(
+                                            value: 0,
+                                            groupValue: backgroundmain,
+                                            activeColor: Color(0xff004080),
+                                            onChanged: selectNotebackground,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.all(7)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 3,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss4),
-                                        onChanged: selectShadeMethod,
+                                    ),
+                                    Padding(padding: EdgeInsets.all(25)),
+                                    new Flexible(
+                                      flex: 1,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Card(
+                                              color: Colors.grey.shade200,
+                                              child: Container(
+                                                  width: 110,
+                                                  height: 130,
+                                                  child: Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(
+                                                        8.0),
+                                                    child: Image.asset(
+                                                      "images/notethumb2.png",
+                                                    ),
+                                                  ))),
+                                          new Radio<int>(
+                                            value: 1,
+                                            groupValue: backgroundmain,
+                                            activeColor: Color(0xff004080),
+                                            onChanged: selectNotebackground,
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss4),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.all(7)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 4,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss5),
-                                        onChanged: selectShadeMethod,
-                                      ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss5),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.all(7)),
-                                new Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Radio<int>(
-                                        value: 5,
-                                        groupValue: shadeselect,
-                                        activeColor: Color(ss6),
-                                        onChanged: selectShadeMethod,
-                                      ),
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        color: Color(ss6),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-
-
-                              ])),
-                    )),
-
-              ],
-                  )
-                : Container(
-                    height: 0,
-                    width: 0,
-                  ))
-      ]),
+                                    ),
+                                  ])),
+                        ),
+                      ]),
+                ),
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(14, 5, 8, 8),
+                child: Image.asset(
+                  "images/thumb.png",
+                  color: Color(data.Variables.AppBarColor),
+                  width: 45,
+                ))
+          ]),
+          Divider()
+        ]),
+      ),
     );
   }
 
@@ -576,13 +1077,14 @@ int ss6;
     preferences.setInt("color", color);
   }
 
-  _loadSavedData() async {
+  _saveBackground(String img) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      if (preferences.getInt("color") != null) {
-        data.Variables.AppBarColor = preferences.getInt("color");
-      } else
-        data.Variables.AppBarColor = 0xff004080;
-    });
+    preferences.setString("backclip", img);
   }
+  _saveNoteBackground(String img) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("backcover", img);
+  }
+
+
 }

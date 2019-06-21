@@ -8,7 +8,6 @@ import 'package:notes_app/model.dart';
 import 'package:notes_app/outputScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'notesScreen/notepage.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -295,6 +294,16 @@ _loadSavedData();
       if(preferences.getInt("color")!=null){
         data.Variables.AppBarColor =preferences.getInt("color");}
       else data.Variables.AppBarColor= 0xff004080;
+
+      if(preferences.getString("backclip") != null ) {
+        data.Variables.smallNote = preferences.getString("backclip");
+      } else
+        data.Variables.smallNote = "images/noteclip1.png";
+      if(preferences.getString("backcover") != null ) {
+        data.Variables.notepad = preferences.getString("backcover");
+      } else
+        data.Variables.notepad = "images/noteback.png";
+
     });
   }
 }
