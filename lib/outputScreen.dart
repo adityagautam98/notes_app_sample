@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/database.dart';
 import 'package:notes_app/globalVariables.dart' as data;
 import 'package:flutter/services.dart';
 import 'package:notes_app/model.dart';
 import 'package:notes_app/updateScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class outputScreen extends StatefulWidget {
   final String title;

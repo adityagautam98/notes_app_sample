@@ -4,4 +4,3 @@ class Variables {
   static String notepad;
   static String smallNote;
 }
-

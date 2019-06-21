@@ -4,7 +4,6 @@ import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
 import 'package:notes_app/model.dart';
 import 'package:notes_app/myhome.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class updateScreen extends StatefulWidget {
   final String title;
@@ -20,9 +19,7 @@ class updateScreen extends StatefulWidget {
 }
 
 class _updateScreenState extends State<updateScreen> {
-
   var db = DatabaseHelper();
-
 
   TextEditingController updatedEntry = TextEditingController();
 
@@ -35,22 +32,23 @@ class _updateScreenState extends State<updateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( backgroundColor: Color(data.Variables.AppBarColor),
+      appBar: AppBar(
+        backgroundColor: Color(data.Variables.AppBarColor),
         title: Text("Edit Entry"),
         elevation: 15,
         actions: <Widget>[
-         IconButton(
+          IconButton(
             icon: Icon(Icons.done_all),
             onPressed: () {
-        _updateItem(widget.item, widget.index);
-    var router= new MaterialPageRoute(
-    builder: (BuildContext context){
-    return Home();
-    }
-    );
-    Navigator.of(context).pushReplacement(router);
-    },
-         ) ],
+              _updateItem(widget.item, widget.index);
+              var router =
+                  new MaterialPageRoute(builder: (BuildContext context) {
+                return Home();
+              });
+              Navigator.of(context).pushReplacement(router);
+            },
+          )
+        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -72,7 +70,7 @@ class _updateScreenState extends State<updateScreen> {
               controller: updatedEntry,
               scrollPadding: EdgeInsets.all(8),
               onEditingComplete: () {
-              //  _saveMessage(widget.id, updatedEntry.text);
+                //  _saveMessage(widget.id, updatedEntry.text);
               },
               textCapitalization: TextCapitalization.sentences,
               textInputAction: TextInputAction.newline,
@@ -89,18 +87,16 @@ class _updateScreenState extends State<updateScreen> {
     );
   }
 
-
-  _updateItem(NoDoItem item, int index) async{
-            NoDoItem newItem= NoDoItem.fromMap({"itemName": item.itemName,
-              "dateCreated": dateFormatted(0),
-              "id": item.id,
-              "day": item.day,
-              "date": item.date,
-              "time":item.time,
-              "data": updatedEntry.text
-            });
-            await db.updateItem(newItem);// update in database
-
+  _updateItem(NoDoItem item, int index) async {
+    NoDoItem newItem = NoDoItem.fromMap({
+      "itemName": item.itemName,
+      "dateCreated": dateFormatted(0),
+      "id": item.id,
+      "day": item.day,
+      "date": item.date,
+      "time": item.time,
+      "data": updatedEntry.text
+    });
+    await db.updateItem(newItem); // update in database
   }
-
 }

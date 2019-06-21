@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
-import 'package:notes_app/mainPage.dart';
 import 'package:notes_app/model.dart';
 import 'package:notes_app/myhome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,14 +65,15 @@ class _inputScreenState extends State<inputScreen> {
             child: Icon(Icons.home),
             elevation: 10,
             backgroundColor: Color(0xff004d93),
-            onPressed: (){ _handleSubmitted(heading.text, dataEntry.text);
-            heading.clear();
-            dataEntry.clear();
-            var router4 =
-            new MaterialPageRoute(builder: (BuildContext context) {
-              return Home();
-            });
-            Navigator.of(context).pushReplacement(router4);
+            onPressed: () {
+              _handleSubmitted(heading.text, dataEntry.text);
+              heading.clear();
+              dataEntry.clear();
+              var router4 =
+                  new MaterialPageRoute(builder: (BuildContext context) {
+                return Home();
+              });
+              Navigator.of(context).pushReplacement(router4);
             },
           ),
         ],
@@ -163,6 +163,5 @@ class _inputScreenState extends State<inputScreen> {
         dateFormatted(2), dateFormatted(3), entry);
     int savedItemId = await db.saveItem(noDoItem);
     savedId = savedItemId;
-    NoDoItem addedItem = await db.getItem(savedItemId);
   }
 }

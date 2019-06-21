@@ -8,7 +8,6 @@ import 'package:notes_app/model.dart';
 import 'package:notes_app/outputScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -18,15 +17,18 @@ class _MainPageState extends State<MainPage> {
   final TextEditingController textEditingController = TextEditingController();
   var db = DatabaseHelper();
   final List<NoDoItem> _itemList = <NoDoItem>[];
+  MediaQueryData queryData;
+
   @override
   void initState() {
     super.initState();
-_loadSavedData();
+    _loadSavedData();
     _readNoDoList();
   }
 
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       body: Column(
@@ -42,59 +44,60 @@ _loadSavedData();
                       color: Colors.grey.shade100,
                       child: ListTile(
                         leading: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(top: 0),
-                                child: AutoSizeText(
-                                  "${_itemList[index].day}",
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontSize: 13),
-                                ),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0),
+                              child: AutoSizeText(
+                                "${_itemList[index].day}",
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 13),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: AutoSizeText(
-                                  _itemList[index].date,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: AutoSizeText(
+                                _itemList[index].date,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: AutoSizeText(
-                                  _itemList[index].time,
-                                  maxLines: 1,
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              )
-                            ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: AutoSizeText(
+                                _itemList[index].time,
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            )
+                          ],
                         ),
                         title: Padding(
                           padding: const EdgeInsets.only(top: 0, bottom: 0),
                           child: Column(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top:10.0, bottom:0),
+                                padding:
+                                    const EdgeInsets.only(top: 10.0, bottom: 0),
                                 child: Container(
                                   child: AutoSizeText(
                                     "${_itemList[index].itemName}",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
+                                        fontSize:
+                                            18 / queryData.textScaleFactor,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   alignment: Alignment.topLeft,
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 3.0,bottom:10),
+                                padding:
+                                    const EdgeInsets.only(top: 4.0, bottom: 10),
                                 child: Container(
                                   child: Text(
                                     "${_itemList[index].data}",
@@ -102,7 +105,8 @@ _loadSavedData();
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         fontStyle: FontStyle.italic,
-                                        fontSize: 15),
+                                        fontSize:
+                                            15 / queryData.textScaleFactor),
                                   ),
                                   alignment: Alignment.topLeft,
                                 ),
@@ -283,27 +287,22 @@ _loadSavedData();
     });
   }
 
-
-
-
-
-
-  _loadSavedData() async{
-    SharedPreferences preferences= await SharedPreferences.getInstance();
+  _loadSavedData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      if(preferences.getInt("color")!=null){
-        data.Variables.AppBarColor =preferences.getInt("color");}
-      else data.Variables.AppBarColor= 0xff004080;
+      if (preferences.getInt("color") != null) {
+        data.Variables.AppBarColor = preferences.getInt("color");
+      } else
+        data.Variables.AppBarColor = 0xff004080;
 
-      if(preferences.getString("backclip") != null ) {
+      if (preferences.getString("backclip") != null) {
         data.Variables.smallNote = preferences.getString("backclip");
       } else
         data.Variables.smallNote = "images/noteclip1.png";
-      if(preferences.getString("backcover") != null ) {
+      if (preferences.getString("backcover") != null) {
         data.Variables.notepad = preferences.getString("backcover");
       } else
         data.Variables.notepad = "images/noteback.png";
-
     });
   }
 }

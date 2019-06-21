@@ -1,5 +1,6 @@
 import 'package:notes_app/globalVariables.dart' as data;
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:notes_app/myhome.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +11,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  MediaQueryData queryData;
   int selected;
   int back;
   int backgroundmain;
@@ -219,7 +221,7 @@ class _SettingsState extends State<Settings> {
 
   void selectNotebackground(int value) {
     setState(() {
-      backgroundmain= value;
+      backgroundmain = value;
 
       switch (value) {
         case 0:
@@ -234,13 +236,22 @@ class _SettingsState extends State<Settings> {
             _saveNoteBackground("images/noteback1.png");
             break;
           }
-      }});}
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Settings"),
         backgroundColor: Color(data.Variables.AppBarColor),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.done_all),
+              onPressed: () => Navigator.pop(context))
+        ],
       ),
       drawer: Drawer(
         elevation: 20,
@@ -315,10 +326,10 @@ class _SettingsState extends State<Settings> {
         child: ListView(children: [
           Stack(children: [
             Container(
-              margin: EdgeInsets.fromLTRB(30, 26, 8, 0),
+              margin: EdgeInsets.fromLTRB(20, 5, 8, 0),
               child: Card(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  padding: const EdgeInsets.fromLTRB(2, 18, 2, 18),
                   child: Column(children: <Widget>[
                     ConfigurableExpansionTile(
                         onExpansionChanged: (bool t) {
@@ -337,15 +348,24 @@ class _SettingsState extends State<Settings> {
                         ),
                         header: Flexible(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                "Theme Colour",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                    fontSize: 19),
+                              Container(
+                                width: queryData.size.width * .45,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30),
+                                  child: AutoSizeText(
+                                    "Theme Colour",
+                                    maxLines: 1,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                        fontSize:
+                                            25 / queryData.textScaleFactor),
+                                  ),
+                                ),
                               ),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(6),
@@ -574,13 +594,14 @@ class _SettingsState extends State<Settings> {
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 18.0),
-                                              child: Text(
+                                              child: AutoSizeText(
                                                 "You can also choose between shades",
+                                                softWrap: true,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w400,
                                                     color: Colors.black,
-                                                    fontSize: 16),
+                                                    fontSize: 14),
                                               ),
                                             ),
                                           ])),
@@ -842,32 +863,40 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 8),
+              padding: const EdgeInsets.fromLTRB(9.0, 2, 8, 8),
               child: Icon(
                 Icons.settings,
-                size: 55,
+                size: 34,
                 color: Color(data.Variables.AppBarColor),
               ),
             ),
           ]),
           Stack(children: [
             Container(
-              margin: EdgeInsets.fromLTRB(30, 25, 8, 0),
+              margin: EdgeInsets.fromLTRB(20, 5, 8, 0),
               child: Card(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  padding: const EdgeInsets.fromLTRB(2, 18, 2, 18),
                   child: ConfigurableExpansionTile(
                       header: Flexible(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              "Select Clip background",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                  fontSize: 19),
+                            Container(
+                              width: queryData.size.width * .62,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, right: 30),
+                                child: AutoSizeText(
+                                  "Select Clip background",
+                                  maxLines: 1,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 25 / queryData.textScaleFactor),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -923,7 +952,7 @@ class _SettingsState extends State<Settings> {
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Card(
-                                            color: Colors.grey.shade200,
+                                              color: Colors.grey.shade200,
                                               child: Container(
                                                   width: 90,
                                                   height: 100,
@@ -951,31 +980,40 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.fromLTRB(14, 14, 8, 8),
+                padding: const EdgeInsets.fromLTRB(12, 2, 8, 8),
                 child: Image.asset(
                   "images/thumb3.png",
                   color: Color(data.Variables.AppBarColor),
-                  width: 42,
+                  width: 30,
                 ))
           ]),
           Stack(children: [
             Container(
-              margin: EdgeInsets.fromLTRB(30, 25, 8, 0),
+              margin: EdgeInsets.fromLTRB(20, 5, 8, 0),
               child: Card(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(2, 30, 2, 30),
+                  padding: const EdgeInsets.fromLTRB(2, 18, 2, 18),
                   child: ConfigurableExpansionTile(
                       header: Flexible(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              "Select Note pad background",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                  fontSize: 18),
+                            Container(
+                              width: queryData.size.width * .64,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 30.0,
+                                ),
+                                child: AutoSizeText(
+                                  "Select Note pad background",
+                                  textAlign: TextAlign.left,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 25 / queryData.textScaleFactor),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -1000,7 +1038,7 @@ class _SettingsState extends State<Settings> {
                                       flex: 1,
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Card(
                                               color: Colors.grey.shade200,
@@ -1009,7 +1047,7 @@ class _SettingsState extends State<Settings> {
                                                 height: 130,
                                                 child: Padding(
                                                   padding:
-                                                  const EdgeInsets.all(8.0),
+                                                      const EdgeInsets.all(8.0),
                                                   child: (Image.asset(
                                                       "images/notethumbpng.png")),
                                                 ),
@@ -1028,7 +1066,7 @@ class _SettingsState extends State<Settings> {
                                       flex: 1,
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Card(
                                               color: Colors.grey.shade200,
@@ -1037,8 +1075,8 @@ class _SettingsState extends State<Settings> {
                                                   height: 130,
                                                   child: Padding(
                                                     padding:
-                                                    const EdgeInsets.all(
-                                                        8.0),
+                                                        const EdgeInsets.all(
+                                                            8.0),
                                                     child: Image.asset(
                                                       "images/notethumb2.png",
                                                     ),
@@ -1059,11 +1097,11 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.fromLTRB(14, 5, 8, 8),
+                padding: const EdgeInsets.fromLTRB(12, 0, 8, 0),
                 child: Image.asset(
                   "images/thumb.png",
                   color: Color(data.Variables.AppBarColor),
-                  width: 45,
+                  width: 30,
                 ))
           ]),
           Divider()
@@ -1081,10 +1119,9 @@ class _SettingsState extends State<Settings> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("backclip", img);
   }
+
   _saveNoteBackground(String img) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("backcover", img);
   }
-
-
 }

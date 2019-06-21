@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/model.dart';
 import 'package:notes_app/settings/setting.dart';
-import 'package:notes_app/dateFormatter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'mainPage.dart';
 import 'package:notes_app/globalVariables.dart' as data;
-import 'database.dart';
 import 'notesScreen/notepage.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _indexstate=0;
+  int _indexstate = 0;
   final pages = [MainPage(), notesPage()];
 
   @override
@@ -45,7 +41,7 @@ class _HomeState extends State<Home> {
                       ),
                       accountEmail: Text("Your companion",
                           style:
-                          TextStyle(color: Colors.black54, fontSize: 16)),
+                              TextStyle(color: Colors.black54, fontSize: 16)),
                       currentAccountPicture: CircleAvatar(
                         backgroundColor: Color(0xff91aaef),
                         child: Image.asset(
@@ -73,13 +69,12 @@ class _HomeState extends State<Home> {
                         ),
                         ListTile(
                           title:
-                          Text("Settings", style: TextStyle(fontSize: 17)),
+                              Text("Settings", style: TextStyle(fontSize: 17)),
                           trailing: Icon(Icons.settings),
                           onTap: () {
                             Navigator.of(context).pop();
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    Settings()));
+                                builder: (BuildContext context) => Settings()));
                           },
                         ),
                       ],
@@ -119,4 +114,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

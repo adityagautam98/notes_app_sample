@@ -7,16 +7,17 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = new DatabaseHelper.internal();
+
   factory DatabaseHelper() => _instance;
 
   final String tableName = "nodoTbl";
   final String columnId = "id";
   final String columnItemName = "itemName";
   final String columnDateCreated = "dateCreated";
-  final String columnDay="day";
-  final String columnDate="date";
-  final String columnTime= "time";
-  final String columnData="data";
+  final String columnDay = "day";
+  final String columnDate = "date";
+  final String columnTime = "time";
+  final String columnData = "data";
   static Database _db;
 
   Future<Database> get db async {
@@ -53,7 +54,8 @@ class DatabaseHelper {
   //Get
   Future<List> getItems() async {
     var dbClient = await db;
-    var result = await dbClient.rawQuery("SELECT * FROM $tableName ORDER BY $columnId ASC"); //ASC
+    var result = await dbClient
+        .rawQuery("SELECT * FROM $tableName ORDER BY $columnId ASC"); //ASC
 
     return result.toList();
 
@@ -65,19 +67,19 @@ class DatabaseHelper {
 //    }
 //
 //    return users;
-
   }
 
   Future<int> getCount() async {
     var dbClient = await db;
-    return Sqflite.firstIntValue(await dbClient.rawQuery(
-        "SELECT COUNT(*) FROM $tableName"
-    ));
+    return Sqflite.firstIntValue(
+        await dbClient.rawQuery("SELECT COUNT(*) FROM $tableName"));
   }
+
 //
   Future<NoDoItem> getItem(int id) async {
     var dbClient = await db;
-    var result = await dbClient.rawQuery("SELECT * FROM $tableName WHERE id = $id");
+    var result =
+        await dbClient.rawQuery("SELECT * FROM $tableName WHERE id = $id");
     if (result.length == 0) return null;
     return new NoDoItem.fromMap(result.first);
   }
@@ -92,15 +94,14 @@ class DatabaseHelper {
 
   Future<int> deleteItem(int id) async {
     var dbClient = await db;
-    return await dbClient.delete(tableName,
-        where: "$columnId = ?", whereArgs: [id]);
-
+    return await dbClient
+        .delete(tableName, where: "$columnId = ?", whereArgs: [id]);
   }
+
   Future<int> updateItem(NoDoItem item) async {
     var dbClient = await db;
     return await dbClient.update("$tableName", item.toMap(),
         where: "$columnId = ?", whereArgs: [item.id]);
-
   }
 
   Future close() async {

@@ -13,8 +13,9 @@ class notesPage extends StatefulWidget {
 }
 
 class _notesPage extends State<notesPage> {
+  MediaQueryData queryData;
   bool _saveData;
-  String saved= "Welcome to our App.\n"
+  String saved = "Welcome to our App.\n"
       "Use it to store lists, your notes and everything else.\n"
       "Please tap to expand..\n\n\n\n"
       "Long press on Note Screen to update existing notes.\n";
@@ -42,6 +43,7 @@ class _notesPage extends State<notesPage> {
 
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Color(0xffececec),
       body: Padding(
@@ -55,10 +57,10 @@ class _notesPage extends State<notesPage> {
           mainAxisSpacing: 4,
           children: List.generate(_itemList.length, (index) {
             return Container(
-             decoration:BoxDecoration(
-            image: DecorationImage(
-            image: AssetImage(data.Variables.smallNote),
-            fit: BoxFit.fill)),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(data.Variables.smallNote),
+                      fit: BoxFit.fill)),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(2, 3, 0, 4),
                 child: ListTile(
@@ -82,13 +84,13 @@ class _notesPage extends State<notesPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
-
-                        child: Row( children: <Widget>[
+                        child: Row(
+                          children: <Widget>[
                             Container(
                                 child: Text(
                               "${_itemList[index].dateCreated}",
-                                                            style: TextStyle(
-                                  fontSize: 28,
+                              style: TextStyle(
+                                  fontSize: 28 / queryData.textScaleFactor,
                                   color: Color(0xff004466),
                                   fontWeight: FontWeight.w600),
                               textAlign: TextAlign.left,
@@ -96,7 +98,8 @@ class _notesPage extends State<notesPage> {
                             Expanded(
                                 child: Text(
                               "  ${_itemList[index].month}",
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(
+                                  fontSize: 17 / queryData.textScaleFactor),
                             )),
                             IconButton(
                                 icon: Icon(Icons.delete),
@@ -106,31 +109,31 @@ class _notesPage extends State<notesPage> {
                           ],
                         ),
                       ),
-                       Expanded(
-                         child: Container(
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                   AutoSizeText(
-                                      "${_itemList[index].itemName}",
-                                    maxLines: 7,  style: TextStyle(
-                                          fontSize: 15, color: Colors.black87),
-                                    ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: AutoSizeText(
-                                      "${_itemList[index].time}",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  )
-                                ]),
-                          ),
-                       ),
-
+                      Expanded(
+                        child: Container(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                AutoSizeText(
+                                  "${_itemList[index].itemName}",
+                                  maxLines: 7,
+                                  style: TextStyle(
+                                      fontSize: 15 / queryData.textScaleFactor,
+                                      color: Colors.black87),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: AutoSizeText(
+                                    "${_itemList[index].time}",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                )
+                              ]),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -278,16 +281,16 @@ class _notesPage extends State<notesPage> {
   _loadSavedState() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-
-      if (preferences.getBool("loading") != null ) {
+      if (preferences.getBool("loading") != null) {
         _saveData = preferences.getBool("loading");
       } else
         _saveData = true;
-      if(_saveData){                              //Keep this down or savedData has to be initialised.
+      if (_saveData) {
+        //Keep this down or savedData has to be initialised.
         _saveLoadState(false);
         _handleSubmitted(saved);
       }
-     });
+    });
   }
 
   _saveLoadState(bool toLoad) async {

@@ -19,13 +19,12 @@ class Splash extends StatefulWidget {
 class _SplashScreen extends State with TickerProviderStateMixin {
   bool _saveData;
   int savedId;
-  String titlesave="Welcome to Dear Diary App";
-  String savedata= "Let's take a walkthrough. Please tap to expand.\n\n\n"
+  String titlesave = "Welcome to Dear Diary App";
+  String savedata = "Let's take a walkthrough. Please tap to expand.\n\n\n"
       "1.Long press on home screen to edit title.\n"
       "2.Long press on this screen to copy your diary entry to clipboard, you can also use copy icon at top.\n"
       "3.Edit the diary entry by tapping on edit button.";
   var db = DatabaseHelper();
-  final List<NoDoItem> _itemList = <NoDoItem>[];
   AnimationController controller;
   AnimationController controller2;
   Animation<double> animation2;
@@ -114,12 +113,14 @@ class _SplashScreen extends State with TickerProviderStateMixin {
       ),
     );
   }
-  _loadSavedData() async{
-    SharedPreferences preferences= await SharedPreferences.getInstance();
+
+  _loadSavedData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      if(preferences.getInt("color")!=null){
-        data.Variables.AppBarColor =preferences.getInt("color");}
-      else data.Variables.AppBarColor= 0xff004080;
+      if (preferences.getInt("color") != null) {
+        data.Variables.AppBarColor = preferences.getInt("color");
+      } else
+        data.Variables.AppBarColor = 0xff004080;
     });
   }
 
@@ -130,24 +131,24 @@ class _SplashScreen extends State with TickerProviderStateMixin {
         _saveData = preferences.getBool("loadingdata");
       } else
         _saveData = true;
-      if (_saveData) { //Keep this down or savedData has to be initialised.
+      if (_saveData) {
+        //Keep this down or savedData has to be initialised.
         _saveLoadState(false);
         _handleSubmitted(titlesave, savedata);
       }
       print(_saveData);
     });
   }
+
   _saveLoadState(bool toLoad) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setBool("loadingdata", toLoad);
   }
+
   void _handleSubmitted(String text, String entry) async {
     NoDoItem noDoItem = NoDoItem(text, dateFormatted(0), dateFormatted(1),
         dateFormatted(2), dateFormatted(3), entry);
     int savedItemId = await db.saveItem(noDoItem);
     savedId = savedItemId;
-    NoDoItem addedItem = await db.getItem(savedItemId);
   }
 }
-
-
