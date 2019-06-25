@@ -64,8 +64,12 @@ flutter:
     - images/Logo.png
     - images/noteback.png
     - images/notethumbpng.png
+    - images/backgrd.jpg
     - images/notethumb2.png
     - images/thumb.png
+    - images/pic.png
+    - images/user.png
+    - images/desc.png
     - images/thumb3.png
     - images/noteback1.png
     - images/title.png

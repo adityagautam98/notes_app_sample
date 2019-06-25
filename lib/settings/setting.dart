@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:notes_app/globalVariables.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:notes_app/myhome.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+import 'package:notes_app/settings/userSettings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -243,9 +246,10 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     queryData = MediaQuery.of(context);
+    double top15= 15/queryData.textScaleFactor;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: Text("Display Settings"),
         backgroundColor: Color(data.Variables.AppBarColor),
         actions: <Widget>[
           IconButton(
@@ -253,71 +257,138 @@ class _SettingsState extends State<Settings> {
               onPressed: () => Navigator.pop(context))
         ],
       ),
-      drawer: Drawer(
-        elevation: 20,
-        child: Container(
-          color: Color(data.Variables.AppBarColor),
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(6, 6, 6, 0),
-                    child: UserAccountsDrawerHeader(
-                      decoration: BoxDecoration(color: Colors.grey.shade200),
-                      accountName: Text(
-                        "Dear Diary",
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                      accountEmail: Text("Your companion",
-                          style:
-                              TextStyle(color: Colors.black54, fontSize: 16)),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundColor: Color(0xff91aaef),
-                        child: Image.asset(
-                          "images/logo1.png",
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
+      drawer: SizedBox(
+        width: queryData.size.width*.72,
+        child: Drawer(
+          elevation: 20,
+          child: Container(
+            color: Color(data.Variables.AppBarColor),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("images/backgrd.jpg"),
+                              fit: BoxFit.fill,
+                              colorFilter: ColorFilter.mode(
+                                  Color(data.Variables.AppBarColor),
+                                  BlendMode.modulate))),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.fromLTRB(0, top15, 0, 6),
+                              width: 130/queryData.textScaleFactor,
+                              height: 130/queryData.textScaleFactor,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.6),
+                                    blurRadius: 8.0,
+                                  )
+                                ],
+                                color: Colors.white,
+                                // The border you want
+                                border: new Border.all(
+                                  width: 3.0/queryData.textScaleFactor,
+                                  color: Colors.grey.shade300,
+                                ),
+
+                                shape: BoxShape.circle,
+                              ),
+                              child: GestureDetector(
+                                onLongPress: (){
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          UserSetting()));
+                                },
+                                child: CircleAvatar(
+                                  radius: 65,
+                                  backgroundImage: data.Variables.imagepath ==
+                                      null
+                                      ? AssetImage("images/Logo.png")
+                                      : FileImage(File(data.Variables.imagepath)),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "${data.Variables.username}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20 / queryData.textScaleFactor),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0,3,0,16),
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(0,3,0, top15),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${data.Variables.description}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16 / queryData.textScaleFactor),
+                                ),
+                              ),
+                            ),
+
+                          ])),
+                  Expanded(
+                    child: Container(
+                      color: Colors.grey.shade200,
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
                             title: Text(
                               "Home",
-                              style: TextStyle(fontSize: 17),
+                              style: TextStyle(fontSize: 17/queryData.textScaleFactor),
                             ),
                             trailing: Icon(Icons.home),
                             onTap: () {
-                              Navigator.of(context).pop();
-                              try {
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                              } catch (e) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) => Home()));
+                              if (data.Variables.switcher) {
+                                setState(() {
+                                  data.Variables.index = 0;
+                                });
                               }
-                            }),
-                        ListTile(
-                          title:
-                              Text("Settings", style: TextStyle(fontSize: 17)),
-                          trailing: Icon(Icons.settings),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
+                              Navigator.pop(context);
+                              Navigator.of(context).popUntil((route)=>route.isFirst);
+                            },
+                          ),
+                          ListTile(
+                              title: Text(
+                                "User Settings",
+                                style: TextStyle(fontSize: 17/queryData.textScaleFactor),
+                              ),
+                              trailing: Icon(Icons.edit),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.of(context).popUntil((route)=>route.isFirst);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                       UserSetting()));
+                              }),
+                          ListTile(
+                            title: Text("Display Settings",
+                                style: TextStyle(fontSize: 17/queryData.textScaleFactor)),
+                            trailing: Icon(Icons.settings),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -35,18 +35,18 @@ class _SplashScreen extends State with TickerProviderStateMixin {
     super.initState();
     _loadSavedState();
     _loadSavedData();
-    Timer(Duration(seconds: 1, milliseconds: 900), () {
+    Timer(Duration(seconds: 1, milliseconds:0), () {
       return onDoneLoading();
     });
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 400),
       vsync: this,
     );
     animation =
         CurvedAnimation(parent: controller, curve: Curves.easeInOutCubic);
     controller.forward();
     controller2 = AnimationController(
-      duration: const Duration(milliseconds: 1700),
+      duration: const Duration(milliseconds: 700),
       vsync: this,
     );
     animation2 = CurvedAnimation(parent: controller2, curve: Curves.easeInBack);
@@ -121,6 +121,15 @@ class _SplashScreen extends State with TickerProviderStateMixin {
         data.Variables.AppBarColor = preferences.getInt("color");
       } else
         data.Variables.AppBarColor = 0xff004080;
+      if (preferences.getString("backclip") != null) {
+        data.Variables.smallNote = preferences.getString("backclip");
+      } else
+        data.Variables.smallNote = "images/noteclip1.png";
+      if (preferences.getString("backcover") != null) {
+        data.Variables.notepad = preferences.getString("backcover");
+      } else
+        data.Variables.notepad = "images/noteback.png";
+
     });
   }
 
@@ -131,6 +140,12 @@ class _SplashScreen extends State with TickerProviderStateMixin {
         _saveData = preferences.getBool("loadingdata");
       } else
         _saveData = true;
+      if (preferences.getString("image_path") != null) {
+        data.Variables.imagepath = preferences.getString("image_path");
+      }
+      if (preferences.getString("username") != null) {
+        data.Variables.username = preferences.getString("username");
+      } else data.Variables.username= "Dear Diary";
       if (_saveData) {
         //Keep this down or savedData has to be initialised.
         _saveLoadState(false);

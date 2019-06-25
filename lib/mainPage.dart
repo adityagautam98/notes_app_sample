@@ -6,8 +6,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:notes_app/inputScreen.dart';
 import 'package:notes_app/model.dart';
 import 'package:notes_app/outputScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -22,7 +20,6 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _loadSavedData();
     _readNoDoList();
   }
 
@@ -157,7 +154,7 @@ class _MainPageState extends State<MainPage> {
                 new MaterialPageRoute(builder: (BuildContext context) {
               return inputScreen();
             });
-            Navigator.of(context).pushReplacement(router2);
+            Navigator.of(context).push(router2);
           }),
     );
   }
@@ -287,22 +284,22 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  _loadSavedData() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      if (preferences.getInt("color") != null) {
-        data.Variables.AppBarColor = preferences.getInt("color");
-      } else
-        data.Variables.AppBarColor = 0xff004080;
-
-      if (preferences.getString("backclip") != null) {
-        data.Variables.smallNote = preferences.getString("backclip");
-      } else
-        data.Variables.smallNote = "images/noteclip1.png";
-      if (preferences.getString("backcover") != null) {
-        data.Variables.notepad = preferences.getString("backcover");
-      } else
-        data.Variables.notepad = "images/noteback.png";
-    });
-  }
+//  _loadSavedData() async {
+//    SharedPreferences preferences = await SharedPreferences.getInstance();
+//    setState(() {
+//      if (preferences.getInt("color") != null) {
+//        data.Variables.AppBarColor = preferences.getInt("color");
+//      } else
+//        data.Variables.AppBarColor = 0xff004080;
+//
+//      if (preferences.getString("backclip") != null) {
+//        data.Variables.smallNote = preferences.getString("backclip");
+//      } else
+//        data.Variables.smallNote = "images/noteclip1.png";
+//      if (preferences.getString("backcover") != null) {
+//        data.Variables.notepad = preferences.getString("backcover");
+//      } else
+//        data.Variables.notepad = "images/noteback.png";
+//       });
+//  }
 }
