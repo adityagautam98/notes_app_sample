@@ -994,18 +994,21 @@ class _SettingsState extends State<Settings> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Card(
-                                              color: Colors.grey.shade200,
-                                              child: Container(
-                                                width: 90,
-                                                height: 100,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: (Image.asset(
-                                                      "images/noteclip1.png")),
-                                                ),
-                                              )),
+                                          GestureDetector(
+                                            onTap: (){selectbackground(0);},
+                                            child: Card(
+                                                color: Colors.grey.shade200,
+                                                child: Container(
+                                                  width: 90,
+                                                  height: 100,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: (Image.asset(
+                                                        "images/noteclip1.png")),
+                                                  ),
+                                                )),
+                                          ),
                                           new Radio<int>(
                                             value: 0,
                                             groupValue: back,
@@ -1022,19 +1025,22 @@ class _SettingsState extends State<Settings> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Card(
-                                              color: Colors.grey.shade200,
-                                              child: Container(
-                                                  width: 90,
-                                                  height: 100,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      "images/noteclip2.png",
-                                                    ),
-                                                  ))),
+                                          GestureDetector(
+                                            onTap: (){selectbackground(1);},
+                                            child: Card(
+                                                color: Colors.grey.shade200,
+                                                child: Container(
+                                                    width: 90,
+                                                    height: 100,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Image.asset(
+                                                        "images/noteclip2.png",
+                                                      ),
+                                                    ))),
+                                          ),
                                           new Radio<int>(
                                             value: 1,
                                             groupValue: back,
@@ -1111,18 +1117,21 @@ class _SettingsState extends State<Settings> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Card(
-                                              color: Colors.grey.shade200,
-                                              child: Container(
-                                                width: 110,
-                                                height: 130,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: (Image.asset(
-                                                      "images/notethumbpng.png")),
-                                                ),
-                                              )),
+                                          GestureDetector(
+                                            onTap:(){ selectNotebackground(0);},
+                                            child: Card(
+                                                color: Colors.grey.shade200,
+                                                child: Container(
+                                                  width: 110,
+                                                  height: 130,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8.0),
+                                                    child: (Image.asset(
+                                                        "images/notethumbpng.png")),
+                                                  ),
+                                                )),
+                                          ),
                                           new Radio<int>(
                                             value: 0,
                                             groupValue: backgroundmain,
@@ -1139,19 +1148,22 @@ class _SettingsState extends State<Settings> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Card(
-                                              color: Colors.grey.shade200,
-                                              child: Container(
-                                                  width: 110,
-                                                  height: 130,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Image.asset(
-                                                      "images/notethumb2.png",
-                                                    ),
-                                                  ))),
+                                          GestureDetector(
+                                            onTap: (){selectNotebackground(1);},
+                                            child: Card(
+                                                color: Colors.grey.shade200,
+                                                child: Container(
+                                                    width: 110,
+                                                    height: 130,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Image.asset(
+                                                        "images/notethumb2.png",
+                                                      ),
+                                                    ))),
+                                          ),
                                           new Radio<int>(
                                             value: 1,
                                             groupValue: backgroundmain,

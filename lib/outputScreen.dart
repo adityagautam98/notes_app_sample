@@ -25,6 +25,7 @@ class _outputScreenState extends State<outputScreen> {
     return Scaffold(
         key: key,
         appBar: AppBar(
+          elevation: 15,
           backgroundColor: Color(data.Variables.AppBarColor),
           title: Text("My Diary"),
           actions: <Widget>[
@@ -73,54 +74,78 @@ class _outputScreenState extends State<outputScreen> {
               key.currentState.showSnackBar(snackbar);
             },
             child: Padding(
-              padding: const EdgeInsets.all(9.0),
+              padding: const EdgeInsets.fromLTRB(2,3,0,0),
               child: ListView(children: <Widget>[
-                ListTile(
-                  leading: Text(
-                    "${widget.item.date.substring(0, 2)}",
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 36,
-                        color: Colors.blue.shade900,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "${widget.item.day}",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      Text(
-                        "${widget.item.dateCreated.substring(3, 13)}"
-                            .toUpperCase(),
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  trailing: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 8, 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[Text("${widget.item.time}")],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 8, 0, 2),
+                  child: Container(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(10,0,0,0),
+                                    child: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            "${widget.item.date}",
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontStyle: FontStyle.italic,
+                                                fontSize: 36,
+                                                color: Colors.blue.shade900,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+
+
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(10,0,0,0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text("${widget.item.day}",
+                                                  style: TextStyle(fontSize: 14),
+                                                ),
+                                                Text(
+                                                    "${widget.item.monthYear.toUpperCase()}",
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                                                )
+                                              ],
+                                            ),
+                                          ),]),
+                                  ),
+                                  Flexible(
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                            child: Container(
+                                              child: Text("${widget.item.time}"),
+                                            )),
+                                      ],
+                                    ),
+                                  )]  ),])
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 15, 5, 0),
+                  padding: const EdgeInsets.fromLTRB(13, 15, 5, 0),
                   child: Text(
                     "${widget.title}",
                     style: TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.italic),
+                        fontStyle: FontStyle.normal),
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+                    padding: const EdgeInsets.fromLTRB(13, 10, 5, 10),
                     child: Text(
                       "${widget.data}",
                       textAlign: TextAlign.left,

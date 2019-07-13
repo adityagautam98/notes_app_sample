@@ -23,7 +23,7 @@ class _noteViewState extends State<noteView> {
     final key = new GlobalKey<ScaffoldState>();
     return SafeArea(
       child: Scaffold(
-        key: key,
+        key: key,// to use snackBar
         body: Padding(
           padding: const EdgeInsets.all(0),
           child: Container(
@@ -51,6 +51,7 @@ class _noteViewState extends State<noteView> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.baseline,
                                     textBaseline: TextBaseline.alphabetic,
@@ -67,7 +68,7 @@ class _noteViewState extends State<noteView> {
                                         child: Text(
                                           "${widget.item.month}",
                                           style: TextStyle(
-                                              fontSize: 18 /
+                                              fontSize: 24 /
                                                   queryData.textScaleFactor),
                                         ),
                                       ),

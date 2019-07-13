@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                             Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: AutoSizeText(
-                                _itemList[index].date,
+                                _itemList[index].dateMonth,
                                 maxLines: 1,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w600),
@@ -247,7 +247,9 @@ class _MainPageState extends State<MainPage> {
           onPressed: () async {
             NoDoItem newItem = NoDoItem.fromMap({
               "itemName": textEditingController.text,
-              "dateCreated": dateFormatted(0),
+              "monthName": dateFormatted(4),
+              "dateMonth" : item.dateMonth,
+              "monthYear": item.monthYear,
               "id": item.id,
               "day": item.day,
               "date": item.date,

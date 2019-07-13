@@ -23,7 +23,8 @@ class _SplashScreen extends State with TickerProviderStateMixin {
   String savedata = "Let's take a walkthrough. Please tap to expand.\n\n\n"
       "1.Long press on home screen to edit title.\n"
       "2.Long press on this screen to copy your diary entry to clipboard, you can also use copy icon at top.\n"
-      "3.Edit the diary entry by tapping on edit button.";
+      "3.Edit the diary entry by tapping on edit button.\n"
+      "4.You can also select your theme from Display Settings and profile picture from User Settings";
   var db = DatabaseHelper();
   AnimationController controller;
   AnimationController controller2;
@@ -161,8 +162,7 @@ class _SplashScreen extends State with TickerProviderStateMixin {
   }
 
   void _handleSubmitted(String text, String entry) async {
-    NoDoItem noDoItem = NoDoItem(text, dateFormatted(0), dateFormatted(1),
-        dateFormatted(2), dateFormatted(3), entry);
+    NoDoItem noDoItem = NoDoItem(text, entry, dateFormatted(1), dateFormatted(2), dateFormatted(3), dateFormatted(4), dateFormatted(5), dateFormatted(6));
     int savedItemId = await db.saveItem(noDoItem);
     savedId = savedItemId;
   }

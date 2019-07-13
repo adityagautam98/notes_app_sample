@@ -60,7 +60,6 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-
     - images/Logo.png
     - images/noteback.png
     - images/notethumbpng.png

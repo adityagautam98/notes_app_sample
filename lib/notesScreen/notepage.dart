@@ -32,7 +32,7 @@ class _notesPage extends State<notesPage> {
 
   void _handleSubmitted(String text) async {
     NoDoItemNotes noDoItem = NoDoItemNotes(
-        text, dateFormatted(4), dateFormatted(5), dateFormatted(2));
+        text, dateFormatted(2), dateFormatted(4), dateFormatted(1));
     int savedItemId = await db.saveItem(noDoItem);
     NoDoItemNotes addedItem = await db.getItem(savedItemId);
     setState(() {
@@ -80,27 +80,40 @@ class _notesPage extends State<notesPage> {
                         _itemList[index], index, _itemList[index].itemName);
                   },
                   title: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
                         child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                                child: Text(
-                              "${_itemList[index].dateCreated}",
-                              style: TextStyle(
-                                  fontSize: 28 / queryData.textScaleFactor,
-                                  color: Color(0xff004466),
-                                  fontWeight: FontWeight.w600),
-                              textAlign: TextAlign.left,
-                            )),
-                            Expanded(
-                                child: Text(
-                              "  ${_itemList[index].month}",
-                              style: TextStyle(
-                                  fontSize: 17 / queryData.textScaleFactor),
-                            )),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                textBaseline: TextBaseline.alphabetic,
+                                children: <Widget>[
+                                  Container(
+                                      child: Text(
+                                    "${_itemList[index].dateCreated}",
+                                    style: TextStyle(
+                                        fontSize:
+                                            32 / queryData.textScaleFactor,
+                                        color: Color(0xff004466),
+                                        fontWeight: FontWeight.w600),
+                                    textAlign: TextAlign.left,
+                                  )),
+                                  Text(
+                                    "  ${_itemList[index].month}",
+                                    style: TextStyle(
+                                        fontSize:
+                                            17 / queryData.textScaleFactor),
+                                  )
+                                ],
+                              ),
+                            ),
                             IconButton(
                                 icon: Icon(Icons.delete),
                                 onPressed: () {
@@ -154,20 +167,19 @@ class _notesPage extends State<notesPage> {
 
   void _showFormDialog() {
     var alert = AlertDialog(
-      content: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-                maxLines: 8,
-                controller: textEditingController,
-                autofocus: true,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                  labelText: "NOTES",
-                  hintText: "ex- A List",
-                )),
-          )
-        ],
+      content: Container(
+        width: queryData.size.width * .70,
+        child: TextField(
+            enableInteractiveSelection: true,
+            controller: textEditingController,
+            autofocus: true,
+            maxLines: 7,
+            keyboardType: TextInputType.multiline,
+            textCapitalization: TextCapitalization.sentences,
+            decoration: InputDecoration(
+              labelText: "NOTES",
+              hintText: "ex- A List",
+            )),
       ),
       actions: <Widget>[
         FlatButton(
@@ -239,9 +251,9 @@ class _notesPage extends State<notesPage> {
           onPressed: () async {
             NoDoItemNotes newItem = NoDoItemNotes.fromMap({
               "itemName": textEditingController.text,
-              "dateCreated": item.dateCreated,
-              "time": item.time,
-              "month": item.month,
+              "dateCreated": dateFormatted(2),
+              "time": dateFormatted(1),
+              "month": dateFormatted(4),
               "id": item.id
             });
             _handleSubmittedUpdate(

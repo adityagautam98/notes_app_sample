@@ -13,11 +13,13 @@ class DatabaseHelper {
   final String tableName = "nodoTbl";
   final String columnId = "id";
   final String columnItemName = "itemName";
-  final String columnDateCreated = "dateCreated";
+  final String columnData = "data";
+  final String columnDateMonth = "dateMonth";
   final String columnDay = "day";
   final String columnDate = "date";
   final String columnTime = "time";
-  final String columnData = "data";
+  final String columnMonthName = "monthName";
+  final String columnMonthYear = "monthYear";
   static Database _db;
 
   Future<Database> get db async {
@@ -32,14 +34,16 @@ class DatabaseHelper {
 
   initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, "notodo_db4.db");
+    String path = join(documentDirectory.path, "notodo_dbFinal.db");
     var ourDb = await openDatabase(path, version: 1, onCreate: _onCreate);
     return ourDb;
   }
 
   void _onCreate(Database db, int version) async {
-    await db.execute(
-        "CREATE TABLE $tableName(id INTEGER PRIMARY KEY, $columnItemName TEXT, $columnDateCreated TEXT, $columnDay TEXT, $columnTime TEXT, $columnDate TEXT , $columnData TEXT)");
+    await db.execute("CREATE TABLE $tableName"
+        "(id INTEGER PRIMARY KEY, $columnItemName TEXT, "
+        "$columnDateMonth TEXT, $columnDay TEXT, $columnTime TEXT, $columnDate TEXT , $columnData TEXT,"
+        "$columnMonthName TEXT, $columnMonthYear TEXT)");
     print("Table is created");
   }
 

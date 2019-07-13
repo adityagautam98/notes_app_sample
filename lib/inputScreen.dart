@@ -1,3 +1,4 @@
+import 'package:notes_app/globalVariables.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:notes_app/database.dart';
 import 'package:notes_app/dateFormatter.dart';
@@ -17,6 +18,7 @@ class inputScreen extends StatefulWidget {
 }
 
 class _inputScreenState extends State<inputScreen> {
+  MediaQueryData queryData;
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -46,12 +48,13 @@ class _inputScreenState extends State<inputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return WillPopScope(
       onWillPop: _onWillPop,
     child: Scaffold(
         appBar: AppBar(
           elevation: 15,
-          backgroundColor: Color(0xff004080),
+          backgroundColor: Color(data.Variables.AppBarColor),
           title: Text("New Dairy Entry"),
           actions: <Widget>[
             IconButton(
@@ -88,7 +91,7 @@ class _inputScreenState extends State<inputScreen> {
             FloatingActionButton(
               child: Icon(Icons.save),
               elevation: 10,
-              backgroundColor: Color(0xff004d93),
+              backgroundColor: Color(data.Variables.AppBarColor),
               onPressed: () {
                 _handleSubmitted(heading.text, dataEntry.text);
                 heading.clear();
@@ -103,77 +106,107 @@ class _inputScreenState extends State<inputScreen> {
             ),
           ],
         ),
-        body: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 2),
-              child: ListTile(
-                leading: Text(
-                  dateFormatted(4),
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontSize: 36,
-                      color: Colors.blue.shade900,
-                      fontWeight: FontWeight.w600),
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      dateFormatted(6),
-                      style: TextStyle(fontSize: 14),
+        body: SafeArea(
+          child: ListView(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(2, 8, 0, 2),
+                child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.fromLTRB(10,0,0,0),
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    dateFormatted(2),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 36,
+                                        color: Colors.blue.shade900,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+
+
+                Container(
+                  margin: EdgeInsets.fromLTRB(10,0,0,0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          dateFormatted(3),
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Text(
+                          dateFormatted(6).toUpperCase(),
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
-                    Text(
-                      dateFormatted(7).toUpperCase(),
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                    )
-                  ],
+                  ),]),
+                            ),
+                  Flexible(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                          child: Container(
+                            child: Text(dateFormatted(1)),
+                          )),
+                      ],
+                    ),
+                  )]  ),])
+                  ),
                 ),
-                trailing: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 8, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[Text(dateFormatted(2))],
+              Center(
+                  child: Padding(
+                padding: EdgeInsets.fromLTRB(12, 2, 14, 5),
+                child: TextFormField(
+                  controller: heading,
+                  scrollPadding: EdgeInsets.all(8),
+                  onEditingComplete: () {
+                    _saveMessage(widget.id, dataEntry.text);
+                  },
+                  textInputAction: TextInputAction.done,
+                  textCapitalization: TextCapitalization.sentences,
+                  autofocus: true,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                      hintText: "Title :",
+                      hintStyle: TextStyle(fontStyle: FontStyle.italic)),
+                ),
+              )),
+              Padding(
+                padding: EdgeInsets.fromLTRB(12, 2, 14, 5),
+                child: Container(
+                  height: queryData.size.height*.5,
+                  child: TextField(
+                    maxLines: null,
+                    enableInteractiveSelection: true,
+                    controller: dataEntry,
+                    scrollPadding: EdgeInsets.all(8),
+                    textCapitalization: TextCapitalization.sentences,
+                    textInputAction: TextInputAction.newline,
+                    autofocus: false,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration.collapsed(
+                        hintText: "Dear Diary,",
+                        hintStyle: TextStyle(fontStyle: FontStyle.italic)),
                   ),
                 ),
               ),
-            ),
-            Center(
-                child: Padding(
-              padding: EdgeInsets.fromLTRB(12, 2, 14, 5),
-              child: TextFormField(
-                controller: heading,
-                scrollPadding: EdgeInsets.all(8),
-                onEditingComplete: () {
-                  _saveMessage(widget.id, dataEntry.text);
-                },
-                textInputAction: TextInputAction.done,
-                textCapitalization: TextCapitalization.sentences,
-                autofocus: true,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                    hintText: "Title :",
-                    hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-              ),
-            )),
-            Padding(
-              padding: EdgeInsets.fromLTRB(12, 2, 14, 5),
-              child: TextField(
-                controller: dataEntry,
-                scrollPadding: EdgeInsets.all(8),
-                textCapitalization: TextCapitalization.sentences,
-                textInputAction: TextInputAction.newline,
-                autofocus: false,
-                maxLines: 9999,
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                    hintText: "Dear Diary,",
-                    hintStyle: TextStyle(fontStyle: FontStyle.italic)),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -185,8 +218,7 @@ class _inputScreenState extends State<inputScreen> {
   }
 
   void _handleSubmitted(String text, String entry) async {
-    NoDoItem noDoItem = NoDoItem(text, dateFormatted(0), dateFormatted(1),
-        dateFormatted(2), dateFormatted(3), entry);
+    NoDoItem noDoItem = NoDoItem(text, entry, dateFormatted(1), dateFormatted(2), dateFormatted(3), dateFormatted(4), dateFormatted(5), dateFormatted(6));
     int savedItemId = await db.saveItem(noDoItem);
     savedId = savedItemId;
   }

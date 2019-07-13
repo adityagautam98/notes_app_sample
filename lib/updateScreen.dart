@@ -41,6 +41,7 @@ class _updateScreenState extends State<updateScreen> {
             icon: Icon(Icons.done_all),
             onPressed: () {
               _updateItem(widget.item, widget.index);
+              Navigator.of(context).popUntil((route)=> route.isFirst);
               var router =
                   new MaterialPageRoute(builder: (BuildContext context) {
                 return Home();
@@ -74,7 +75,7 @@ class _updateScreenState extends State<updateScreen> {
               },
               textCapitalization: TextCapitalization.sentences,
               textInputAction: TextInputAction.newline,
-              maxLines: 9999,
+              maxLines: null,
               autofocus: true,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
@@ -90,7 +91,9 @@ class _updateScreenState extends State<updateScreen> {
   _updateItem(NoDoItem item, int index) async {
     NoDoItem newItem = NoDoItem.fromMap({
       "itemName": item.itemName,
-      "dateCreated": dateFormatted(0),
+      "monthName": item.monthName,
+      "dateMonth": item.dateMonth,
+      "monthYear": item.monthYear,
       "id": item.id,
       "day": item.day,
       "date": item.date,
