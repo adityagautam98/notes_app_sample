@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   MediaQueryData queryData;
-  final pages = [MainPage(), notesPage()];
+  final pages = [MainPage(), NotesPage()];
 
   @override
   void initState() {

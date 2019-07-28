@@ -36,7 +36,7 @@ class _SplashScreen extends State with TickerProviderStateMixin {
     super.initState();
     _loadSavedState();
     _loadSavedData();
-    Timer(Duration(seconds: 1, milliseconds:0), () {
+    Timer(Duration(seconds: 1, milliseconds: 0), () {
       return onDoneLoading();
     });
     controller = AnimationController(
@@ -130,7 +130,6 @@ class _SplashScreen extends State with TickerProviderStateMixin {
         data.Variables.notepad = preferences.getString("backcover");
       } else
         data.Variables.notepad = "images/noteback.png";
-
     });
   }
 
@@ -146,7 +145,8 @@ class _SplashScreen extends State with TickerProviderStateMixin {
       }
       if (preferences.getString("username") != null) {
         data.Variables.username = preferences.getString("username");
-      } else data.Variables.username= "Dear Diary";
+      } else
+        data.Variables.username = "Dear Diary";
       if (_saveData) {
         //Keep this down or savedData has to be initialised.
         _saveLoadState(false);
@@ -162,7 +162,15 @@ class _SplashScreen extends State with TickerProviderStateMixin {
   }
 
   void _handleSubmitted(String text, String entry) async {
-    NoDoItem noDoItem = NoDoItem(text, entry, dateFormatted(1), dateFormatted(2), dateFormatted(3), dateFormatted(4), dateFormatted(5), dateFormatted(6));
+    NoDoItem noDoItem = NoDoItem(
+        text,
+        entry,
+        dateFormatted(1),
+        dateFormatted(2),
+        dateFormatted(3),
+        dateFormatted(4),
+        dateFormatted(5),
+        dateFormatted(6));
     int savedItemId = await db.saveItem(noDoItem);
     savedId = savedItemId;
   }

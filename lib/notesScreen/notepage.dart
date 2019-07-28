@@ -7,12 +7,12 @@ import 'databasenotes.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'modelNotes.dart';
 
-class notesPage extends StatefulWidget {
+class NotesPage extends StatefulWidget {
   @override
-  _notesPage createState() => _notesPage();
+  _NotesPage createState() => _NotesPage();
 }
 
-class _notesPage extends State<notesPage> {
+class _NotesPage extends State<NotesPage> {
   MediaQueryData queryData;
   bool _saveData;
   String saved = "Welcome to our App.\n"
